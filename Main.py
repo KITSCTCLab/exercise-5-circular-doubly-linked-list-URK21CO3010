@@ -12,15 +12,40 @@ class DoublyCircularLinkedList:
 
     def add_at_tail(self, data) -> bool:
         # Write code here
+        
 
     def add_at_head(self, data) -> bool:
         # Write code here
+        if self.head is None:
+            node = Node(data, self.head, None)
+            self.head = node
+        
+        else:
+            node = Node(data, self.head, None)
+            self.head.prev = node
+            self.head = node
 
     def add_at_index(self, index, data) -> bool:
         # Write code here
+        if index < 0 or index >= self.getLength():
+            return False
+
+        count = 0
+
+        itr = self.head
+
+        while itr is not None:
+            if count == index - 1:
+                node = Node(data, itr.next, itr)
+                itr.next.prev = node
+                itr.next = node
+            count += 1
+            itr = itr.next
+        return True
 
     def get(self, index) -> int:
         # Write code here
+        
 
     def delete_at_index(self, index) -> bool:
         # Write code here
