@@ -1,3 +1,10 @@
+'''
+
+add_at_head, add_at_tail, add_at_index, get, delete_at_index, get, get_previous_next
+10, 3, [1,2], 1, 1, 1, 1
+
+'''
+
 class Node:
     def __init__(self, data=None):
         self.data = data
@@ -13,7 +20,7 @@ class DoublyCircularLinkedList:
     def add_at_tail(self, data) -> bool:
         # Write code here
         if self.head is None:
-            self.insertAtBeginning(data)
+            self.add_at_head(data)
         
         else:
             itr = self.head
@@ -54,11 +61,11 @@ class DoublyCircularLinkedList:
             return False
         
         elif index == 0:
-            self.insertAtBeginning(data)
+            self.add_at_head(data)
             return True
         
         elif index == self.getLength():
-            self.insertAtEnd(data)
+            self.add_at_tail(data)
             return True
         
         else:
