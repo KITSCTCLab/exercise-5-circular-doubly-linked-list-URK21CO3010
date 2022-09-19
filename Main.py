@@ -12,46 +12,143 @@ class DoublyCircularLinkedList:
 
     def add_at_tail(self, data) -> bool:
         # Write code here
+        if self.head is None:
+            self.insertAtBeginning(data)
+        
+        else:
+            itr = self.head
+            
+            while itr.next != self.head:
+                itr = itr.next
+            
+            n = Node(data)
+            n.next = self.head
+            n.prev = itr
+            itr.next = n
+            self.head.prev = n
+            return True
         
 
     def add_at_head(self, data) -> bool:
         # Write code here
+        n = Node(data)
+        
         if self.head is None:
-            node = Node(data, self.head, None)
-            self.head = node
+            self.head = n
+            n.next = n
+            n.prev = n
+            return True
         
         else:
-            node = Node(data, self.head, None)
-            self.head.prev = node
-            self.head = node
+            n.next = self.head
+            n.prev = self.head.prev
+            self.head.prev.next = n
+            self.head.prev = n
+            self.head = n
+            return True
+        
 
     def add_at_index(self, index, data) -> bool:
         # Write code here
-        if index < 0 or index >= self.getLength():
+        if index < 0 or index > self.getLength():
             return False
-
-        count = 0
-
-        itr = self.head
-
-        while itr is not None:
-            if count == index - 1:
-                node = Node(data, itr.next, itr)
-                itr.next.prev = node
-                itr.next = node
-            count += 1
-            itr = itr.next
-        return True
+        
+        elif index == 0:
+            self.insertAtBeginning(data)
+            return True
+        
+        elif index == self.getLength():
+            self.insertAtEnd(data)
+            return True
+        
+        else:
+            itr = self.head
+            
+            for i in range(index - 1):
+                itr = itr.next
+            
+            n = Node(data)
+            
+            n.next = itr.next
+            n.prev = itr
+            
+            itr.next = n
+            itr.next.prev = n
+            
+            return True
 
     def get(self, index) -> int:
         # Write code here
+        if index < 0 or index > self.getLength():
+            return False
+        
+        elif index == 0:
+            return self.head.data
+        
+        elif index == self.getLength():
+            return self.head.prev.data
+        
+        else:
+            itr = self.head
+            
+            for i in range(index):
+                itr = itr.next
+            
+            return itr.data
         
 
     def delete_at_index(self, index) -> bool:
         # Write code here
+        if index < 0 or index > self.getLength():
+            return False
+        
+        else:
+            itr = self.head
+            
+            for i in range(index):
+                itr = itr.next
+            
+            itr.prev.next = itr.next
+            itr.next.prev = itr.prev
+            
+            if index == 0:
+                self.head = itr.next
+            
+            return True
 
     def get_previous_next(self, index) -> list:
         # Write code here
+        if index < 0 or index > self.getLength():
+            return False
+        
+        l = []
+        
+        itr = self.head
+        
+        for i in range(index):
+            itr = itr.next
+        
+        l.append(itr.prev.data)
+        l.append(itr.next.data)
+        
+        return l
+    
+    def getLength(self):
+        
+        if self.head is None:
+            return 0
+        
+        elif self.head.next == self.head:
+            return 1
+        
+        else:
+            length = 0
+            itr = self.head
+            while itr.next != self.head:
+                length += 1
+                itr = itr.next
+            
+            return length + 1
 
 
 # Do not change the following code
