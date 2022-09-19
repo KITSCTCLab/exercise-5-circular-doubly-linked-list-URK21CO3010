@@ -87,7 +87,7 @@ class DoublyCircularLinkedList:
     def get(self, index) -> int:
         # Write code here
         if index < 0 or index > self.getLength() or self.head is None:
-            return False
+            return -1
         
         elif index == 0:
             return self.head.data
