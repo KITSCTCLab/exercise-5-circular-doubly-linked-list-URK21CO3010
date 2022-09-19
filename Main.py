@@ -73,7 +73,7 @@ class DoublyCircularLinkedList:
             n.prev = itr
             
             itr.next = n
-            itr.next.prev = n
+            n.next.prev = n
             
             return True
 
